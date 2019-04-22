@@ -88,7 +88,7 @@ app.post('/questions', (req, res) => {
 
 // PUT
 // Updating an existing question, pushing answer to answers
-app.put('/api/questions/:id', (req, res) => {
+app.put('/questions/:id', (req, res) => {
     Question.findOneAndUpdate({ _id: req.params.id },
         { $push: { answers: { $each: [{ answer: req.body.answer, votes: 0 }] } } }, { upsert: true }, function (err, result) {
             if (err) {
