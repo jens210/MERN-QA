@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-//import UpdateAnswer from "./UpdateAnswer.js"
 import QuestionList from "./QuestionList";
 import Question from "./Question";
 import AddQuestion from "./AddQuestion";
@@ -15,6 +14,7 @@ class App extends Component {
             questions: []
         }
         this.addQuestion = this.addQuestion.bind(this);
+        this.postAnswer = this.postAnswer.bind(this);
         this.onChange = this.onChange.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
@@ -46,6 +46,27 @@ class App extends Component {
             .then(response => response.json())
             .then(json => {
                 console.log("Result of posting a new question:");
+                console.log(json);
+            });
+    }
+
+    // new answers to questions could be used for votes changeing 
+    postAnswer(answer) {
+        // getting everything after last /
+        let urlID = window.location.href.split("/").pop();
+        // Put JSON to API
+        fetch('http://localhost:8080/questions/' + urlID, {
+            method: 'POST',
+            body: JSON.stringify({
+                answer: answer
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log("Result of posting an answer to a question:");
                 console.log(json);
             });
     }
@@ -83,7 +104,7 @@ class App extends Component {
 
                         <Route exact path={'/questions/add'}
                             render={(props) => <AddQuestion {...props}
-                                addData={this.addQuestion}
+                                addQuestion={this.addQuestion}
                                 onChange={this.onChange}
                                 handleInput={this.handleInput}
                             />}
@@ -91,7 +112,9 @@ class App extends Component {
 
                         <Route exact path={'/questions/:id'}
                             render={(props) => <Question {...props}
-                                question={this.getQuestionFromId(props.match.params.id)} />}
+                                question={this.getQuestionFromId(props.match.params.id)}
+                                postAnswer={this.postAnswer}
+                            />}
                         />
 
                         <Route component={NotFound} />

@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /****** Configuration *****/
 
@@ -48,10 +49,7 @@ let questionSchema = new mongoose.Schema({
 
 let Question = mongoose.model('Question', questionSchema);
 
-
-
 const port = (process.env.PORT || 8080);
-
 
 /****** Routes *****/
 // GET
@@ -66,6 +64,13 @@ app.get('/questions/:id', (req, res) => {
         res.json(questions);
     })
 });
+/*
+app.get('/questions/:id/:answers._id', (req, res) => {
+    Question.findOne({ _id: req.params.id, 'answers._id': req.params.answers._id }, (err, questions) => {
+        res.json(questions[answers._id]);
+    })
+});
+*/
 
 
 // POST
@@ -86,21 +91,37 @@ app.post('/questions', (req, res) => {
 });
 
 
-// PUT
-// Updating an existing question, pushing answer to answers
-app.put('/questions/:id', (req, res) => {
+// Post
+// Pushing new answer to answers on existing question
+app.post('/questions/:id', (req, res) => {
     Question.findOneAndUpdate({ _id: req.params.id },
-        { $push: { answers: { $each: [{ answer: req.body.answer, votes: 0 }] } } }, { upsert: true }, function (err, result) {
-            if (err) {
-                console.log("Error " + err);
+        { $push: { answers: { $each: [{ answer: req.body.answer, votes: 0 }] } } }, { upsert: true })
+        .then(function (question) { res.send(question) })
+        .then(console.log(`Question ${req.body.title} was updated`))
+        .catch(err => console.log(err))
+});
+
+
+// PUT
+// votes
+app.put('/questions/:id', (req, res) => {
+ //   Question.findOneAndUpdate({ _id: req.params.id, 'answers._id': "5cc0219da92c831df3228730" }, // works but static
+    Question.findOneAndUpdate({ _id: req.params.id, 'answers._id': answers.id}, // can't find answers id
+    { $set:
+            {
+             "answers.$.votes": req.body.votes
             }
-        });
+         }
+    )
+        .then(function (question) { res.send(question) })
+        .then(console.log(`Question ${req.body.title} was updated`))
+        .catch(err => console.log(err))
 });
 
 /*
 app.put('/questions/:id', (req, res) => {
-    Question.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
-        .then(function(question){res.send(question)})
+    Question.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+        .then(function (question) { res.send(question) })
         .then(console.log(`Question ${req.body.title} was updated`))
         .catch(err => console.log(err))
 });

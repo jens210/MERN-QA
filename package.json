@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "api": "file:express",
+    "body-parser": "^1.18.3",
     "mongoose": "^5.4.20",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",

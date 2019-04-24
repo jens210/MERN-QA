@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class UpdateAnswer extends Component {
+export default class PostAnswer extends Component {
     constructor(props) {
         super(props);
 
@@ -22,7 +22,7 @@ export default class UpdateAnswer extends Component {
 
     handleInput(event) {
         event.preventDefault();
-        this.props.updateAnswer(
+        this.props.postAnswer(
             this.state.answer
         );
     }
@@ -34,8 +34,6 @@ export default class UpdateAnswer extends Component {
                     <form>
                         <div className="form-group">
                             <label htmlFor="itemText">Post answer</label>
-                       
-
                             <input type="text" name="answer" className="form-control" id="itemText"
                                 placeholder="answer"
                                 onChange={this.onChange}
