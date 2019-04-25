@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 const mongoose = require('mongoose');
 
 const dbUrl = 'mongodb://localhost/test'; // change me
+Schema = mongoose.Schema
 mongoose.connect(`${dbUrl}`, { useNewUrlParser: true });
 
 let db = mongoose.connection;
@@ -36,6 +37,20 @@ db.once('open', function () {
     console.log("DB connection is open.");
 });
 
+let answerSchema = new mongoose.Schema({
+    answer: String,
+    votes: Number
+});
+
+let questionSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    answers: [answerSchema]
+});
+
+let Question = mongoose.model('Question', questionSchema);
+let Answer = mongoose.model("Answer", answerSchema);
+/*
 let questionSchema = new mongoose.Schema({
     title: String,
     description: String,
@@ -46,8 +61,8 @@ let questionSchema = new mongoose.Schema({
         }
     ]
 });
+*/
 
-let Question = mongoose.model('Question', questionSchema);
 
 const port = (process.env.PORT || 8080);
 
@@ -64,21 +79,14 @@ app.get('/questions/:id', (req, res) => {
         res.json(questions);
     })
 });
-/*
-app.get('/questions/:id/:answers._id', (req, res) => {
-    Question.findOne({ _id: req.params.id, 'answers._id': req.params.answers._id }, (err, questions) => {
-        res.json(questions[answers._id]);
-    })
-});
-*/
-
 
 // POST
 app.post('/questions', (req, res) => {
+    let answer = new Answer()
     let newQuestion = new Question({
         title: req.body.title,
         description: req.body.description,
-        answers: []
+
     });
     if (!newQuestion.title || !newQuestion.description || !newQuestion.answers) {
         return res.status(400).json({ msg: 'Information missing' });
@@ -95,36 +103,24 @@ app.post('/questions', (req, res) => {
 // Pushing new answer to answers on existing question
 app.post('/questions/:id', (req, res) => {
     Question.findOneAndUpdate({ _id: req.params.id },
+        // let answer = new Answer();
         { $push: { answers: { $each: [{ answer: req.body.answer, votes: 0 }] } } }, { upsert: true })
+        //  Question.answers.push(answer); use this maybe?
         .then(function (question) { res.send(question) })
         .then(console.log(`Question ${req.body.title} was updated`))
         .catch(err => console.log(err))
 });
 
-
 // PUT
-// votes
+// upvotes or downvotes depending on req.body.num
 app.put('/questions/:id', (req, res) => {
- //   Question.findOneAndUpdate({ _id: req.params.id, 'answers._id': "5cc0219da92c831df3228730" }, // works but static
-    Question.findOneAndUpdate({ _id: req.params.id, 'answers._id': answers.id}, // can't find answers id
-    { $set:
-            {
-             "answers.$.votes": req.body.votes
-            }
-         }
+    Question.findOneAndUpdate({ "answers._id": req.body._id }, 
+        { $inc: { "answers.$.votes": req.body.num } }
     )
         .then(function (question) { res.send(question) })
         .then(console.log(`Question ${req.body.title} was updated`))
         .catch(err => console.log(err))
 });
 
-/*
-app.put('/questions/:id', (req, res) => {
-    Question.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-        .then(function (question) { res.send(question) })
-        .then(console.log(`Question ${req.body.title} was updated`))
-        .catch(err => console.log(err))
-});
-*/
 app.listen(port, () => console.log(`Cooking API running on port ${port}!`));
 

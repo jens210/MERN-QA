@@ -7,31 +7,7 @@ class Question extends Component {
         super(props);
         this.state = {
             questions: [],
-
         };
-
-    }
-
-    // new answers to questions could be used for votes changeing 
-    vote() {
-        //console.log("vote ");
-        // getting everything after last /
-        let urlID = window.location.href.split("/").pop();
-        // Put JSON to API
-        fetch('http://localhost:8080/questions/' + urlID, {
-            method: 'PUT',
-            body: JSON.stringify({
-                votes: 20 // change this
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        })
-            .then(response => response.json())
-            .then(json => {
-                console.log("Result of putting an answer to a question:");
-                console.log(json);
-            });
     }
 
     render() {
@@ -40,11 +16,11 @@ class Question extends Component {
         list = question.answers.map((a) => <div key={a._id}>
 
             <li className="list-group-item">
-                <button className="btn btn-default">
+                <button className="btn btn-default" onClick={()=>{this.props.vote(a._id, 1)}}>
                     <i className="fas fa-chevron-up"></i>
                 </button>
                 <span>{`${a.votes}`}</span>
-                <button className="btn btn-default" onClick={this.vote}>
+                <button className="btn btn-default" onClick={()=>{this.props.vote(a._id, -1)}}>
                     <i className="fas fa-chevron-down"></i>
                 </button>
                 <span>{`${a.answer} `}</span>

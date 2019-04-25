@@ -17,6 +17,7 @@ class App extends Component {
         this.postAnswer = this.postAnswer.bind(this);
         this.onChange = this.onChange.bind(this);
         this.handleInput = this.handleInput.bind(this);
+        this.vote = this.vote.bind(this);
     }
 
     componentDidMount() {
@@ -50,7 +51,7 @@ class App extends Component {
             });
     }
 
-    // new answers to questions could be used for votes changeing 
+    // send new answers to questions
     postAnswer(answer) {
         // getting everything after last /
         let urlID = window.location.href.split("/").pop();
@@ -70,6 +71,28 @@ class App extends Component {
                 console.log(json);
             });
     }
+
+        // Upvote/downvote sends answers._id and num
+        vote(a_id, num) {
+            // getting everything after last /
+            let urlID = window.location.href.split("/").pop();
+            // Put JSON to API
+            fetch('http://localhost:8080/questions/' + urlID, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    _id: a_id,
+                    num : num
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+                .then(response => response.json())
+                .then(json => {
+                    console.log("Voting happend:");
+                    console.log(json);
+                });
+        }
 
     onChange(event) {
         this.setState({
@@ -114,6 +137,7 @@ class App extends Component {
                             render={(props) => <Question {...props}
                                 question={this.getQuestionFromId(props.match.params.id)}
                                 postAnswer={this.postAnswer}
+                                vote={this.vote}
                             />}
                         />
 
