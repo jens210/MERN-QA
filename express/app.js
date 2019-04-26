@@ -79,7 +79,7 @@ app.get('/api/questions/:id', (req, res) => {
 app.post('/api/questions', (req, res) => {
     let newQuestion = new Question({
         title: req.body.title,
-        description: req.body.description,
+        description: req.body.description
 
     });
     if (!newQuestion.title || !newQuestion.description || !newQuestion.answers) {
