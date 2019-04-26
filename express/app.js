@@ -60,8 +60,6 @@ let questionSchema = new mongoose.Schema({
 let Question = mongoose.model('Question', questionSchema);
 //let Answer = mongoose.model("Answer", answerSchema);
 
-const port = (process.env.PORT || 8080);
-
 /****** Routes *****/
 // GET
 app.get('/api/questions/', (req, res) => {
