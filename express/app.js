@@ -9,7 +9,6 @@ const morgan = require('morgan');
 
 /**** Configuration ****/
 const port = (process.env.PORT || 8080);
-const app = express();
 app.use(morgan('combined')); // Log all requests to the console
 app.use(express.static(path.join(__dirname, '../build')));
 /****** Configuration *****/
