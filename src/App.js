@@ -7,7 +7,6 @@ import NotFound from "./NotFound";
 
 class App extends Component {
     API_URL = "/api";
-    //API_URL = process.env.REACT_APP_API_URL;
     constructor(props) {
         super(props);
 
@@ -34,7 +33,6 @@ class App extends Component {
 
     addQuestion(title, description) {
         // Posting JSON to API
-        //  fetch(`${this.API_URL}/questions`, {
         fetch(`${this.API_URL}/questions`, {
             method: 'POST',
             body: JSON.stringify({
@@ -57,7 +55,6 @@ class App extends Component {
         // getting everything after last /
         let urlID = window.location.href.split("/").pop();
         // Put JSON to API
-        // fetch(`${this.API_URL}/questions` + urlID, {
         fetch(`${this.API_URL}/questions/${urlID}`, {
             method: 'POST',
             body: JSON.stringify({
@@ -142,7 +139,6 @@ class App extends Component {
                                 vote={this.vote}
                             />}
                         />
-
                         <Route component={NotFound} />
                     </Switch>
 

@@ -3,15 +3,10 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-//app.use(bodyParser.urlencoded({ extended: true }));
-
-//const morgan = require('morgan');
-
 /**** Configuration ****/
 const port = (process.env.PORT || 8080);
 const app = express();
 app.use(bodyParser.json());
-//app.use(morgan('combined')); // Log all requests to the console
 app.use(express.static(path.join(__dirname, '../build')));
 /****** Configuration *****/
 
@@ -36,7 +31,6 @@ app.use((req, res, next) => {
 /****** Mongoose *****/
 const mongoose = require('mongoose');
 let dbUrl = process.env.mongoUrl;
-//const dbUrl = 'mongodb://localhost/test'; // change me
 Schema = mongoose.Schema
 mongoose.connect(`${dbUrl}`, { useNewUrlParser: true });
 
