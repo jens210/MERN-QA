@@ -1,9 +1,17 @@
+/**** External libraries ****/
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.urlencoded({ extended: true }));
+const path = require('path');
+const morgan = require('morgan');
 
+/**** Configuration ****/
+const port = (process.env.PORT || 8080);
+const app = express();
+app.use(morgan('combined')); // Log all requests to the console
+app.use(express.static(path.join(__dirname, '../build')));
 /****** Configuration *****/
 
 // Additional headers to avoid triggering CORS security errors in the browser
@@ -97,7 +105,7 @@ app.post('/api/questions/:id', (req, res) => {
         .catch(err => console.log(err))
 });
 
-// PUT
+// PUT  
 // Upvotes or downvotes depending on req.body.num value
 app.put('/api/questions/:id', (req, res) => {
     Question.findOneAndUpdate({ "answers._id": req.body._id },
