@@ -6,7 +6,7 @@ import AddQuestion from "./AddQuestion";
 import NotFound from "./NotFound";
 
 class App extends Component {
-
+    API_URL = process.env.REACT_APP_API_URL;
     constructor(props) {
         super(props);
 
@@ -26,7 +26,7 @@ class App extends Component {
     }
 
     getData() {
-        fetch('http://localhost:8080/questions')
+        fetch(`${this.API_URL}/questions`)
             .then(response => response.json())
             .then(questions => this.setState({ questions: questions }))
     }
@@ -34,7 +34,7 @@ class App extends Component {
     addQuestion(title, description) {
         // Posting JSON to API
         //  fetch(`${this.API_URL}/questions`, {
-        fetch('http://localhost:8080/questions', {
+        fetch(`${this.API_URL}/questions`, {
             method: 'POST',
             body: JSON.stringify({
                 title: title,
@@ -56,7 +56,7 @@ class App extends Component {
         // getting everything after last /
         let urlID = window.location.href.split("/").pop();
         // Put JSON to API
-        fetch('http://localhost:8080/questions/' + urlID, {
+        fetch(`${this.API_URL}/questions` + urlID, {
             method: 'POST',
             body: JSON.stringify({
                 answer: answer
@@ -77,7 +77,7 @@ class App extends Component {
             // getting everything after last /
             let urlID = window.location.href.split("/").pop();
             // Put JSON to API
-            fetch('http://localhost:8080/questions/' + urlID, {
+            fetch(`${this.API_URL}/questions` + urlID, {
                 method: 'PUT',
                 body: JSON.stringify({
                     _id: a_id,

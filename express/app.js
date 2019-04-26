@@ -26,7 +26,8 @@ app.use((req, res, next) => {
 
 /****** Mongoose *****/
 const mongoose = require('mongoose');
-const dbUrl = 'mongodb://localhost/test'; // change me
+let dbUrl = process.env.mongoUrl;
+//const dbUrl = 'mongodb://localhost/test'; // change me
 Schema = mongoose.Schema
 mongoose.connect(`${dbUrl}`, { useNewUrlParser: true });
 
@@ -48,26 +49,27 @@ let questionSchema = new mongoose.Schema({
 });
 
 let Question = mongoose.model('Question', questionSchema);
-let Answer = mongoose.model("Answer", answerSchema);
+//let Answer = mongoose.model("Answer", answerSchema);
 
 const port = (process.env.PORT || 8080);
 
 /****** Routes *****/
 // GET
-app.get('/questions/', (req, res) => {
+app.get('/api/questions/', (req, res) => {
     Question.find({}, (err, questions) => {
         res.json(questions);
     }).sort({ title: 1 })
 });
 
-app.get('/questions/:id', (req, res) => {
+app.get('/api/questions/:id', (req, res) => {
     Question.find({ _id: req.params.id }, (err, questions) => {
         res.json(questions);
     })
 });
 
 // POST
-app.post('/questions', (req, res) => {
+// Post question
+app.post('/api/questions', (req, res) => {
     let newQuestion = new Question({
         title: req.body.title,
         description: req.body.description,
@@ -86,26 +88,25 @@ app.post('/questions', (req, res) => {
 
 // Post
 // Pushing new answer to answers on existing question
-app.post('/questions/:id', (req, res) => {
+app.post('/api/questions/:id', (req, res) => {
     Question.findOneAndUpdate({ _id: req.params.id },
-        // let answer = new Answer();
         { $push: { answers: { $each: [{ answer: req.body.answer, votes: 0 }] } } }, { upsert: true })
-        //  Question.answers.push(answer); use this maybe?
+
         .then(function (question) { res.send(question) })
         .then(console.log(`Question ${req.body.title} was updated`))
         .catch(err => console.log(err))
 });
 
 // PUT
-// upvotes or downvotes depending on req.body.num value
-app.put('/questions/:id', (req, res) => {
-    Question.findOneAndUpdate({ "answers._id": req.body._id }, 
-        { $inc: { "answers.$.votes": req.body.num } }
-    )
+// Upvotes or downvotes depending on req.body.num value
+app.put('/api/questions/:id', (req, res) => {
+    Question.findOneAndUpdate({ "answers._id": req.body._id },
+        { $inc: { "answers.$.votes": req.body.num } })
+
         .then(function (question) { res.send(question) })
         .then(console.log(`Question ${req.body.title} was updated`))
         .catch(err => console.log(err))
 });
 
-app.listen(port, () => console.log(`Cooking API running on port ${port}!`));
+app.listen(port, () => console.log(`QA API running on port ${port}!`));
 
