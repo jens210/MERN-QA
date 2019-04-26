@@ -57,7 +57,8 @@ class App extends Component {
         // getting everything after last /
         let urlID = window.location.href.split("/").pop();
         // Put JSON to API
-        fetch(`${this.API_URL}/questions` + urlID, {
+        // fetch(`${this.API_URL}/questions` + urlID, {
+        fetch(`${this.API_URL}/questions${urlID}`, {
             method: 'POST',
             body: JSON.stringify({
                 answer: answer
@@ -73,27 +74,27 @@ class App extends Component {
             });
     }
 
-        // Upvote/downvote sends answers._id and num
-        vote(a_id, num) {
-            // getting everything after last /
-            let urlID = window.location.href.split("/").pop();
-            // Put JSON to API
-            fetch(`${this.API_URL}/questions` + urlID, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    _id: a_id,
-                    num : num
-                }),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            })
-                .then(response => response.json())
-                .then(json => {
-                    console.log("Voting happend:");
-                    console.log(json);
-                });
-        }
+    // Upvote/downvote sends answers._id and num
+    vote(a_id, num) {
+        // getting everything after last /
+        let urlID = window.location.href.split("/").pop();
+        // Put JSON to API
+        fetch(`${this.API_URL}/questions${urlID}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                _id: a_id,
+                num: num
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log("Voting happend:");
+                console.log(json);
+            });
+    }
 
     onChange(event) {
         this.setState({
