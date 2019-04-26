@@ -34,7 +34,7 @@ export default class PostAnswer extends Component {
                     <form>
                         <div className="form-group">
                             <label htmlFor="itemText">Post answer</label>
-                            <input type="text" name="answer" className="form-control" id="itemText"
+                            <textarea rows="5" type="text" name="answer" className="form-control" id="itemText"
                                 placeholder="answer"
                                 onChange={this.onChange}
                             />

@@ -26,7 +26,6 @@ app.use((req, res, next) => {
 
 /****** Mongoose *****/
 const mongoose = require('mongoose');
-
 const dbUrl = 'mongodb://localhost/test'; // change me
 Schema = mongoose.Schema
 mongoose.connect(`${dbUrl}`, { useNewUrlParser: true });
@@ -50,19 +49,6 @@ let questionSchema = new mongoose.Schema({
 
 let Question = mongoose.model('Question', questionSchema);
 let Answer = mongoose.model("Answer", answerSchema);
-/*
-let questionSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    answers: [
-        {
-            answer: String,
-            votes: Number
-        }
-    ]
-});
-*/
-
 
 const port = (process.env.PORT || 8080);
 
@@ -82,7 +68,6 @@ app.get('/questions/:id', (req, res) => {
 
 // POST
 app.post('/questions', (req, res) => {
-    let answer = new Answer()
     let newQuestion = new Question({
         title: req.body.title,
         description: req.body.description,
@@ -112,7 +97,7 @@ app.post('/questions/:id', (req, res) => {
 });
 
 // PUT
-// upvotes or downvotes depending on req.body.num
+// upvotes or downvotes depending on req.body.num value
 app.put('/questions/:id', (req, res) => {
     Question.findOneAndUpdate({ "answers._id": req.body._id }, 
         { $inc: { "answers.$.votes": req.body.num } }
