@@ -58,7 +58,7 @@ class App extends Component {
         let urlID = window.location.href.split("/").pop();
         // Put JSON to API
         // fetch(`${this.API_URL}/questions` + urlID, {
-        fetch(`${this.API_URL}/questions${urlID}`, {
+        fetch(`${this.API_URL}/questions/${urlID}`, {
             method: 'POST',
             body: JSON.stringify({
                 answer: answer
@@ -79,7 +79,7 @@ class App extends Component {
         // getting everything after last /
         let urlID = window.location.href.split("/").pop();
         // Put JSON to API
-        fetch(`${this.API_URL}/questions${urlID}`, {
+        fetch(`${this.API_URL}/questions/${urlID}`, {
             method: 'PUT',
             body: JSON.stringify({
                 _id: a_id,
