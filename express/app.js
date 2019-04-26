@@ -1,15 +1,18 @@
 /**** External libraries ****/
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();
-app.use(bodyParser.json());
+
 //app.use(bodyParser.urlencoded({ extended: true }));
-const path = require('path');
-const morgan = require('morgan');
+
+//const morgan = require('morgan');
 
 /**** Configuration ****/
+const app = express();
+
 const port = (process.env.PORT || 8080);
-app.use(morgan('combined')); // Log all requests to the console
+app.use(bodyParser.json());
+//app.use(morgan('combined')); // Log all requests to the console
 app.use(express.static(path.join(__dirname, '../build')));
 /****** Configuration *****/
 
