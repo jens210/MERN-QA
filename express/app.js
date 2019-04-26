@@ -8,9 +8,8 @@ const bodyParser = require('body-parser');
 //const morgan = require('morgan');
 
 /**** Configuration ****/
-const app = express();
-
 const port = (process.env.PORT || 8080);
+const app = express();
 app.use(bodyParser.json());
 //app.use(morgan('combined')); // Log all requests to the console
 app.use(express.static(path.join(__dirname, '../build')));
