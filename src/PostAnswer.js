@@ -6,7 +6,6 @@ export default class PostAnswer extends Component {
 
         this.state = {
             answer: "",
-            isLoading: true
         };
 
         this.onChange = this.onChange.bind(this);
@@ -28,10 +27,8 @@ export default class PostAnswer extends Component {
         );
     }
 
-    render(){
-        if (this.state.isLoading){
-            return <div>Loading...</div>
-        }  
+    render() {
+
         return (
             <div className="card">
                 <div className="card-body">
