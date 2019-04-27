@@ -5,7 +5,8 @@ export default class PostAnswer extends Component {
         super(props);
 
         this.state = {
-            answer: ""
+            answer: "",
+            isLoading: true
         };
 
         this.onChange = this.onChange.bind(this);
