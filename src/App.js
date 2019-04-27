@@ -11,7 +11,8 @@ class App extends Component {
         super(props);
 
         this.state = {
-            questions: []
+            questions: [],
+            isLoading: true
         }
         this.addQuestion = this.addQuestion.bind(this);
         this.postAnswer = this.postAnswer.bind(this);
@@ -28,7 +29,7 @@ class App extends Component {
     getData() {
         fetch(`${this.API_URL}/questions`)
             .then(response => response.json())
-            .then(questions => this.setState({ questions: questions }))
+            .then(questions => this.setState({ questions: questions, isLoading: false }))
     }
 
     addQuestion(title, description) {
@@ -110,7 +111,11 @@ class App extends Component {
         return this.state.questions.find((elm) => elm._id === id);
     }
 
-    render() {
+    render(){
+        if (this.state.isLoading){
+            return <div>Loading...</div>
+        }     
+     
         return (
             <Router>
                 <div className="container">
