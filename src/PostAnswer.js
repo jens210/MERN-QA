@@ -27,7 +27,10 @@ export default class PostAnswer extends Component {
         );
     }
 
-    render() {
+    render(){
+        if (this.state.isLoading){
+            return <div>Loading...</div>
+        }  
         return (
             <div className="card">
                 <div className="card-body">
