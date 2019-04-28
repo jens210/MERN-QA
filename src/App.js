@@ -6,7 +6,7 @@ import AddQuestion from "./AddQuestion";
 import NotFound from "./NotFound";
 
 class App extends Component {
-    API_URL = process.env.apiUrl;
+    API_URL = "/api";
 
     constructor(props) {
         super(props);
