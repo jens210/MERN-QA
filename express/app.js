@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 /****** Mongoose *****/
 const mongoose = require('mongoose');
 let dbUrl = process.env.mongoUrl;
-Schema = mongoose.Schema
+//Schema = mongoose.Schema
 mongoose.connect(`${dbUrl}`, { useNewUrlParser: true });
 
 let db = mongoose.connection;
@@ -40,19 +40,7 @@ db.once('open', function () {
     console.log("DB connection is open.");
 });
 
-let answerSchema = new mongoose.Schema({
-    answer: String,
-    votes: Number
-});
-
-let questionSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    answers: [answerSchema]
-});
-
-let Question = mongoose.model('Question', questionSchema);
-//let Answer = mongoose.model("Answer", answerSchema);
+let Question = require("../models/question.js")
 
 /****** Routes *****/
 // GET
