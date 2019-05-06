@@ -56,7 +56,8 @@ app.get('/api/questions/:id', (req, res) => {
     })
 });
  
-// catch all 
+// catch all does nothing
+/*
 app.get('/api/*', function(req, res) {   
     res.sendFile(path.join(__dirname, '../public/index.html'), function(err) {
       if (err) {
@@ -64,7 +65,7 @@ app.get('/api/*', function(req, res) {
       }
     })
   }) 
-
+*/
   // POST
 // Post question
 app.post('/api/questions', (req, res) => {
