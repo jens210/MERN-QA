@@ -8,11 +8,8 @@ const port = (process.env.PORT || 8080);
 const app = express();
 app.use(bodyParser.json());
 
-
 app.use(express.static(path.join(__dirname, '../build')));
 /****** Configuration *****/
-
-
 
 // Additional headers to avoid triggering CORS security errors in the browser
 // Read more: https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
