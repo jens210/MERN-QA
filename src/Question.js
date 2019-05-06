@@ -15,8 +15,6 @@ class Question extends Component {
         let list = [];
 
         if (question !== undefined) {
-            <p>loading</p>
-        }
         list = question.answers.map((a) => <div key={a._id}>
 
 
@@ -32,7 +30,7 @@ class Question extends Component {
             </li>
 
         </div>)
-
+        }
         return (
             <div>
                 <h3>{question.title}</h3>
