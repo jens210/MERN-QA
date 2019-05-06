@@ -7,8 +7,12 @@ const bodyParser = require('body-parser');
 const port = (process.env.PORT || 8080);
 const app = express();
 app.use(bodyParser.json());
+
+
 app.use(express.static(path.join(__dirname, '../build')));
 /****** Configuration *****/
+
+
 
 // Additional headers to avoid triggering CORS security errors in the browser
 // Read more: https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
@@ -56,17 +60,12 @@ app.get('/api/questions/:id', (req, res) => {
     })
 });
  
-// catch all does nothing
-/*
-app.get('/api/*', function(req, res) {   
-    res.sendFile(path.join(__dirname, '../public/index.html'), function(err) {
-      if (err) {
-        res.status(500).send(err)
-      }
-    })
-  }) 
-*/
-  // POST
+// catch all
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
+
+// POST
 // Post question
 app.post('/api/questions', (req, res) => {
     let newQuestion = new Question({
