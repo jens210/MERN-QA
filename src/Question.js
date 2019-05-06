@@ -14,22 +14,25 @@ class Question extends Component {
         let question = this.props.question;
         let list = [];
 
-        if(question !== undefined){
-            list = question.answers.map((a) => <div key={a._id}>
+        if (question !== undefined) {
+            <p>loading</p>
         }
-    
+        list = question.answers.map((a) => <div key={a._id}>
+
+
             <li className="list-group-item">
-                <button className="btn btn-default" onClick={()=>{this.props.vote(a._id, 1)}}>
+                <button className="btn btn-default" onClick={() => { this.props.vote(a._id, 1) }}>
                     <i className="fas fa-chevron-up"></i>
                 </button>
                 <span>{`${a.votes}`}</span>
-                <button className="btn btn-default" onClick={()=>{this.props.vote(a._id, -1)}}>
+                <button className="btn btn-default" onClick={() => { this.props.vote(a._id, -1) }}>
                     <i className="fas fa-chevron-down"></i>
                 </button>
                 <span>{`${a.answer} `}</span>
             </li>
 
         </div>)
+
         return (
             <div>
                 <h3>{question.title}</h3>
