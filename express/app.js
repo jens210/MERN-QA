@@ -51,7 +51,7 @@ app.get('/api/questions/', (req, res) => {
 });
 
 app.get('/api/questions/:id', (req, res) => {
-    Question.find({ _id: req.params.id }, (err, questions) => {
+    Question.findOne({ _id: req.params.id }, (err, questions) => {
         res.json(questions);
     })
 });
