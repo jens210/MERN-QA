@@ -6,8 +6,7 @@ class Question extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            questions: [],
-            question: "" // maybe?
+            questions: []
         };
     }
 

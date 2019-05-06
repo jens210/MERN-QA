@@ -57,7 +57,7 @@ app.get('/api/questions/:id', (req, res) => {
 });
  
 // catch all 
-app.get('/*', function(req, res) {   
+app.get('/api/*', function(req, res) {   
     res.sendFile(path.join(__dirname, '../public/index.html'), function(err) {
       if (err) {
         res.status(500).send(err)
