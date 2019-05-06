@@ -12,7 +12,6 @@ class App extends Component {
         super(props);
 
         this.state = {
-            questions: [],
             isLoading: true
         }
         this.addQuestion = this.addQuestion.bind(this);
@@ -50,6 +49,7 @@ class App extends Component {
                 console.log("Result of posting a new question:");
                 console.log(json);
             });
+            getData();
     }
 
     // send new answers to questions
@@ -71,6 +71,7 @@ class App extends Component {
                 console.log("Result of posting an answer to a question:");
                 console.log(json);
             });
+            getData();
     }
 
     // Upvote/downvote sends answers._id and num
@@ -93,6 +94,7 @@ class App extends Component {
                 console.log("Voting happend:");
                 console.log(json);
             });
+            getData();
     }
 
     onChange(event) {
