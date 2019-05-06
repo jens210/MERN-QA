@@ -13,8 +13,11 @@ class Question extends Component {
     render() {
         let question = this.props.question;
         let list = [];
-        list = question.answers.map((a) => <div key={a._id}>
 
+        if(question !== undefined){
+            list = question.answers.map((a) => <div key={a._id}>
+        }
+    
             <li className="list-group-item">
                 <button className="btn btn-default" onClick={()=>{this.props.vote(a._id, 1)}}>
                     <i className="fas fa-chevron-up"></i>
