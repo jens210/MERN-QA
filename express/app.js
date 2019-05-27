@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const port = (process.env.PORT || 8080);
 const app = express();
 app.use(bodyParser.json());
-
 app.use(express.static(path.join(__dirname, '../build')));
 /****** Configuration *****/
 
@@ -114,9 +113,9 @@ app.put('/api/questions/:id', (req, res) => {
 //app.listen(port, () => console.log(`QA API running on port ${port}!`));
 
 /**** Start server ****/
-const server = app.listen(port,
-    () => console.log(`Some app running on port ${port}!`));
-const io = require('socket.io').listen(server);
+const server = app.listen(port, () => console.log(`Some app running on port ${port}!`));
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 /**** Socket.io event handlers ****/
 io.of('/questions').on('connection', function (socket) {
     socket.on('hello', function (from, msg) {
