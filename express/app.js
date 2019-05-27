@@ -118,7 +118,7 @@ const server = app.listen(port,
     () => console.log(`Some app running on port ${port}!`));
 const io = require('socket.io').listen(server);
 /**** Socket.io event handlers ****/
-io.of('/my_app').on('connection', function (socket) {
+io.of('/questions').on('connection', function (socket) {
     socket.on('hello', function (from, msg) {
         console.log(`I received a private message from '${from}' saying '${msg}'`);
     });

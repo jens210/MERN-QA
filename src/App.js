@@ -29,7 +29,7 @@ class App extends Component {
     }
 */
 
-    SOCKET_URL = API_URL + '/my_app';
+    SOCKET_URL = this.API_URL + '/questions';
     componentDidMount() {
         const socket = io(this.SOCKET_URL);
         socket.on('connect', () => {
