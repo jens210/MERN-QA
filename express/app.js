@@ -55,10 +55,10 @@ app.get('/api/questions/:id', (req, res) => {
         res.json(questions);
     })
 });
-
+ 
 // catch all
 app.get('*', (request, response) => {
-    response.sendFile(path.join(__dirname, '../build', 'index.html'));
+	response.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
 // POST
@@ -76,12 +76,8 @@ app.post('/api/questions', (req, res) => {
     newQuestion
         .save()
         .then(result => res.json({ msg: `Question posted: ${req.body.title}` }))
-        .then(io.of('/api/questions').emit('new-data', {
-            msg: 'New data is available on /api/questions'
-        }))
         .catch(err => console.log(err));
 });
-
 
 
 // Post
@@ -91,10 +87,6 @@ app.post('/api/questions/:id', (req, res) => {
         { $push: { answers: { $each: [{ answer: req.body.answer, votes: 0 }] } } }, { upsert: true })
 
         .then(function (question) { res.send(question) })
-        // socket io
-        .then(io.of('/api/questions').emit('new-data', {
-            msg: 'New data is available on /api/questions'
-        }))
         .then(console.log(`Question ${req.body.title} was updated`))
         .catch(err => console.log(err))
 });
@@ -110,18 +102,5 @@ app.put('/api/questions/:id', (req, res) => {
         .catch(err => console.log(err))
 });
 
-//app.listen(port, () => console.log(`QA API running on port ${port}!`));
+app.listen(port, () => console.log(`QA API running on port ${port}!`));
 
-/**** Start server ****/
-const server = app.listen(port, () => console.log(`Some app running on port ${port}!`));
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
-/**** Socket.io event handlers ****/
-io.of('/questions').on('connection', function (socket) {
-    socket.on('hello', function (from, msg) {
-        console.log(`I received a private message from '${from}' saying '${msg}'`);
-    });
-    socket.on('disconnect', () => {
-        console.log("Someone disconnected...");
-    });
-});

@@ -4,7 +4,6 @@ import QuestionList from "./QuestionList";
 import Question from "./Question";
 import AddQuestion from "./AddQuestion";
 import NotFound from "./NotFound";
-import io from 'socket.io-client';
 
 class App extends Component {
     API_URL = "/api";
@@ -22,24 +21,9 @@ class App extends Component {
         this.vote = this.vote.bind(this);
     }
 
-    /*
     componentDidMount() {
         console.log("App component has mounted");
         this.getData();
-    }
-*/
-
-    SOCKET_URL = this.API_URL + '/questions';
-    componentDidMount() {
-        const socket = io(this.SOCKET_URL);
-        socket.on('connect', () => {
-            console.log("Connected to socket.io!");
-            socket.emit('hello', "Kristian", "howdy");
-        });
-        socket.on('new-data', (data) => {
-            console.log(`server msg: ${data.msg}`);
-            this.getData(); // Get the new data using fetch!
-        });
     }
 
     getData() {
@@ -67,7 +51,7 @@ class App extends Component {
                 console.log(json);
                 this.getData();
             });
-
+      
     }
 
     // send new answers to questions
@@ -90,7 +74,7 @@ class App extends Component {
                 console.log(json);
                 this.getData();
             });
-
+ 
     }
 
     // Upvote/downvote sends answers._id and num
@@ -134,11 +118,11 @@ class App extends Component {
         return this.state.questions.find((elm) => elm._id === id);
     }
 
-    render() {
-        if (this.state.isLoading) {
+    render(){
+        if (this.state.isLoading){
             return <div>Loading...</div>
-        }
-
+        }     
+     
         return (
             <Router>
                 <div className="container">
