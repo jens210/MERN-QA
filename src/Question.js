@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PostAnswer from "./PostAnswer.js"
-import io from 'socket.io-client';
+
 
 class Question extends Component {
     API_URL =  "/api";
