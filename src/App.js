@@ -140,10 +140,12 @@ class App extends Component {
         return (
             <Router>
                 <div className="container">
+
                     <nav class="navbar navbar-dark bg-primary">
-                    <Link to='/'>Home</Link>
+                    test
                     </nav>
                     <h1>Questions and answers</h1>
+                    <Link to='/'>Home</Link>
                     <Switch>
                         <Route exact path={'/'}
                             render={(props) =>
