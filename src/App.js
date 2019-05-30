@@ -141,10 +141,10 @@ class App extends Component {
             <Router>
                 <div className="container">
 
-                    <div className="navbar">
+                    
                     QA 
                     <Link to='/'>Home</Link>
-                    </div>
+                    
                     <h1>Questions and answers</h1>
                     
                     <Switch>
