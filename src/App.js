@@ -8,7 +8,7 @@ import io from 'socket.io-client';
 
 class App extends Component {
     //API_URL = "/api";
-    
+
     constructor(props) {
         super(props);
         this.API_URL = process.env.REACT_APP_URL;
@@ -36,8 +36,8 @@ class App extends Component {
             console.log(`server msg: ${data.msg}`);
             this.getData(); // Get the new data using fetch!
         });
-   
-}
+
+    }
 
     getData() {
         fetch(`${this.API_URL}/questions`)
@@ -63,7 +63,7 @@ class App extends Component {
                 console.log(json);
                 this.getData();
             });
-      
+
     }
 
     // send new answers to questions
@@ -86,7 +86,7 @@ class App extends Component {
                 console.log(json);
                 this.getData();
             });
- 
+
     }
 
     // Upvote/downvote sends answers._id and num
@@ -130,17 +130,21 @@ class App extends Component {
         return this.state.questions.find((elm) => elm._id === id);
     }
 
-    render(){
-        if (this.state.isLoading){
+    render() {
+        if (this.state.isLoading) {
             return <div>Loading...</div>
-        }     
-     
+        }
+
         return (
             <Router>
                 <div className="container">
-                
+
+                    <nav className="navbar navbar-dark bg-primary">
+                        <Link to='/'>Home</Link>
+                    </nav>
+
                     <h1>Questions and answers</h1>
-                    <Link to='/'>Home</Link>
+
                     <Switch>
                         <Route exact path={'/'}
                             render={(props) =>
