@@ -7,8 +7,9 @@ import NotFound from "./NotFound";
 import io from 'socket.io-client';
 
 class App extends Component {
-    API_URL = "/api";
-
+    //API_URL = "/api";
+    API_URL = process.env.REACT_APP_URL;
+    
     constructor(props) {
         super(props);
 
@@ -21,11 +22,6 @@ class App extends Component {
         this.handleInput = this.handleInput.bind(this);
         this.vote = this.vote.bind(this);
     }
-
-    /* omponentDidMount() {
-        console.log("App component has mounted");
-        this.getData();
-    } */
 
     SOCKET_URL = 'https://qajens.herokuapp.com/questions';
     componentDidMount() {

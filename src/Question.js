@@ -3,7 +3,8 @@ import PostAnswer from "./PostAnswer.js"
 
 
 class Question extends Component {
-    API_URL =  "/api";
+    //API_URL =  "/api";
+    API_URL = process.env.REACT_APP_URL;
     //process.env.REACT_APP_API_URL;
     constructor(props) {
         super(props);
