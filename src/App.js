@@ -137,11 +137,11 @@ class App extends Component {
 
         return (
             <Router>
-                <div className="container">
-
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                  <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                         <Link className="navbar-brand" to='/'>Home</Link>
                     </nav>
+                <div className="container">
+           
 
                     <h1>Questions and answers</h1>
 
