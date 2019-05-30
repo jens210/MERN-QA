@@ -137,40 +137,39 @@ class App extends Component {
 
         return (
             <Router>
-                  <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div className="container-fluid">
+                    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                         <Link className="navbar-brand" to='/'>Home</Link>
                     </nav>
-                <div className="container">
-           
+                    <div className="container">
+                        <h1>Questions and answers</h1>
 
-                    <h1>Questions and answers</h1>
+                        <Switch>
+                            <Route exact path={'/'}
+                                render={(props) =>
+                                    <QuestionList {...props}
+                                        questions={this.state.questions}
+                                        header={'All questions'} />}
+                            />
 
-                    <Switch>
-                        <Route exact path={'/'}
-                            render={(props) =>
-                                <QuestionList {...props}
-                                    questions={this.state.questions}
-                                    header={'All questions'} />}
-                        />
+                            <Route exact path={'/questions/add'}
+                                render={(props) => <AddQuestion {...props}
+                                    addQuestion={this.addQuestion}
+                                    onChange={this.onChange}
+                                    handleInput={this.handleInput}
+                                />}
+                            />
 
-                        <Route exact path={'/questions/add'}
-                            render={(props) => <AddQuestion {...props}
-                                addQuestion={this.addQuestion}
-                                onChange={this.onChange}
-                                handleInput={this.handleInput}
-                            />}
-                        />
-
-                        <Route exact path={'/questions/:id'}
-                            render={(props) => <Question {...props}
-                                question={this.getQuestionFromId(props.match.params.id)}
-                                postAnswer={this.postAnswer}
-                                vote={this.vote}
-                            />}
-                        />
-                        <Route component={NotFound} />
-                    </Switch>
-
+                            <Route exact path={'/questions/:id'}
+                                render={(props) => <Question {...props}
+                                    question={this.getQuestionFromId(props.match.params.id)}
+                                    postAnswer={this.postAnswer}
+                                    vote={this.vote}
+                                />}
+                            />
+                            <Route component={NotFound} />
+                        </Switch>
+                    </div>
                 </div>
             </Router>
         );
