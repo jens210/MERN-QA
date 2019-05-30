@@ -55,10 +55,10 @@ app.get('/api/questions/:id', (req, res) => {
         res.json(questions);
     })
 });
- 
+
 // catch all
 app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, '../build', 'index.html'));
+    response.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
 // POST
@@ -76,6 +76,9 @@ app.post('/api/questions', (req, res) => {
     newQuestion
         .save()
         .then(result => res.json({ msg: `Question posted: ${req.body.title}` }))
+        .then(io.of('/questions').emit('new-data', {
+            msg: 'New data is available on /api/questions'
+        }))
         .catch(err => console.log(err));
 });
 
@@ -88,6 +91,9 @@ app.post('/api/questions/:id', (req, res) => {
 
         .then(function (question) { res.send(question) })
         .then(console.log(`Question ${req.body.title} was updated`))
+        .then(io.of('/questions').emit('new-data', {
+            msg: 'New data is available on /api/questions'
+        }))
         .catch(err => console.log(err))
 });
 
@@ -99,8 +105,23 @@ app.put('/api/questions/:id', (req, res) => {
 
         .then(function (question) { res.send(question) })
         .then(console.log(`Question ${req.body.title} was updated`))
+        .then(io.of('/questions').emit('new-data', {
+            msg: 'New data is available on /api/questions'
+        }))
         .catch(err => console.log(err))
 });
 
-app.listen(port, () => console.log(`QA API running on port ${port}!`));
+//app.listen(port, () => console.log(`QA API running on port ${port}!`));
 
+/**** Start! ****/
+const server = app.listen(port, () => console.log(`QA API running on port ${port}!`));
+const io = require('socket.io').listen(server);/**** Socket.io event handlers ****/
+// Initializes and retrieves the given Namespace by its pathname identifier nsp. AKA channel
+io.of('/questions').on('connect', function (socket) {
+    socket.on('question', function (from, msg) {
+        console.log(`I received a private message from '${from}' saying '${msg}'`);
+    });
+    socket.on('disconnect', () => {
+        console.log("Someone disconnected...");
+    });
+});

@@ -4,6 +4,7 @@ import QuestionList from "./QuestionList";
 import Question from "./Question";
 import AddQuestion from "./AddQuestion";
 import NotFound from "./NotFound";
+import io from 'socket.io-client';
 
 class App extends Component {
     API_URL = "/api";
@@ -21,16 +22,31 @@ class App extends Component {
         this.vote = this.vote.bind(this);
     }
 
-    componentDidMount() {
+    /* omponentDidMount() {
         console.log("App component has mounted");
         this.getData();
-    }
+    } */
+
+    SOCKET_URL = 'https://qajens.herokuapp.com/questions';
+    componentDidMount() {
+        this.getData(); // Get the old data
+        const socket = io(this.SOCKET_URL);
+        socket.on('connect', () => {
+            console.log("Connected to socket.io!");
+            socket.emit('Socket io fired');
+        });
+
+        socket.on('new-data', (data) => {
+            console.log(`server msg: ${data.msg}`);
+            this.getData(); // Get the new data using fetch!
+        });
+   
+}
 
     getData() {
         fetch(`${this.API_URL}/questions`)
             .then(response => response.json())
             .then(questions => this.setState({ questions: questions, isLoading: false }))
-            //.then(questions => this.setState({ questions: questions }))
     }
 
     addQuestion(title, description) {
