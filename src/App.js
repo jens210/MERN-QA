@@ -139,8 +139,8 @@ class App extends Component {
             <Router>
                 <div className="container">
 
-                    <nav className="navbar navbar-dark bg-primary">
-                        <Link to='/'>Home</Link>
+                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                        <Link className="navbar-brand" to='/'>Home</Link>
                     </nav>
 
                     <h1>Questions and answers</h1>
