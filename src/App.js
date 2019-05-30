@@ -141,11 +141,12 @@ class App extends Component {
             <Router>
                 <div className="container">
 
-                    <nav class="navbar navbar-dark bg-primary">
-                    test
+                    <nav classname="navbar navbar-dark bg-primary">
+                    QA 
+                    <Link to='/'>Home</Link>
                     </nav>
                     <h1>Questions and answers</h1>
-                    <Link to='/'>Home</Link>
+                    
                     <Switch>
                         <Route exact path={'/'}
                             render={(props) =>
