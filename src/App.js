@@ -8,8 +8,7 @@ import io from 'socket.io-client';
 
 class App extends Component {
     //API_URL = "/api";
-   
-
+    
     constructor(props) {
         super(props);
         this.API_URL = process.env.REACT_APP_URL;
@@ -17,7 +16,6 @@ class App extends Component {
         this.state = {
             isLoading: true
         }
-        
         this.addQuestion = this.addQuestion.bind(this);
         this.postAnswer = this.postAnswer.bind(this);
         this.onChange = this.onChange.bind(this);
