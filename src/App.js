@@ -141,7 +141,7 @@ class App extends Component {
             <Router>
                 <div className="container">
 
-                    <nav classname="navbar navbar-dark bg-primary">
+                    <nav className="navbar navbar-dark bg-primary">
                     QA 
                     <Link to='/'>Home</Link>
                     </nav>
