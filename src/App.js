@@ -140,14 +140,12 @@ class App extends Component {
                 <div className="container-fluid">
                     <nav className="nav">
                         <Link className="navbar-brand" to='/'>QA</Link>
-                        <ul className="nav nav-tabs" id="myTab" role="tablist">
-                            <li className="nav-item">
-                                <Link className="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true" to='/'>Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" id="profile-tab" data-toggle="tab" role="tab" to='/questions/add'>Ask questions</Link>
-                            </li>
-                        </ul>
+                        <li className="nav-item">
+                            <Link className="nav-link" to='/'>Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to='/questions/add'>Ask questions</Link>
+                        </li>
                     </nav>
 
                     <div className="container">
