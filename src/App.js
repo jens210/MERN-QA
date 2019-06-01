@@ -137,17 +137,25 @@ class App extends Component {
 
         return (
             <Router>
-                <div className="col-12">
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container-fluid">
+                    <nav class="nav">
                         <Link className="navbar-brand" to='/'>QA</Link>
-                        <li className="nav-item">
-                            <Link className="nav-link" to='/'>Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to='/questions/add'>Ask questions</Link>
-                        </li>
+                        <ul className="nav nav-tabs" id="myTab" role="tablist">
+                            <li className="nav-item">
+                                <Link className="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true"> to='/'>Home</Link>
+                            </li>
+                            <li class="nav-item">
 
+                                <Link className="nav-link" id="profile-tab" data-toggle="tab" role="tab" to='/questions/add'>Ask questions</Link>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                        </div>
                     </nav>
+
                     <div className="container">
                         <h1>Questions and answers</h1>
 
