@@ -137,14 +137,14 @@ class App extends Component {
 
         return (
             <Router>
-                <div class="container-fluid">
-                    <nav class="nav">
+                <div className="container-fluid">
+                    <nav className="nav">
                         <Link className="navbar-brand" to='/'>QA</Link>
                         <ul className="nav nav-tabs" id="myTab" role="tablist">
                             <li className="nav-item">
                                 <Link className="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true"> to='/'>Home</Link>
                             </li>
-                            <li class="nav-item">
+                            <li className="nav-item">
                                 <Link className="nav-link" id="profile-tab" data-toggle="tab" role="tab" to='/questions/add'>Ask questions</Link>
                             </li>
                         </ul>
