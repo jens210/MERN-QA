@@ -137,9 +137,16 @@ class App extends Component {
 
         return (
             <Router>
-                <div className="container-fluid">
+                <div className="col-12">
                     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-                        <Link className="navbar-brand" to='/'>Home</Link>
+                        <Link className="navbar-brand" to='/'>QA</Link>
+                        <li className="nav-item">
+                            <Link className="nav-link" to='/'>Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to='/questions/add'>Ask questions</Link>
+                        </li>
+
                     </nav>
                     <div className="container">
                         <h1>Questions and answers</h1>
